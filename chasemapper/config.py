@@ -171,6 +171,12 @@ def parse_config_file(filename):
         chase_config["stadia_api_key"] = "none"
 
     try:
+        chase_config["mapbox_api_key"] = config.get("map", "mapbox_api_key")
+    except:
+        logging.info("Missing Mapbox API Key setting, using default (none)")
+        chase_config["mapbox_api_key"] = "none"
+
+    try:
         chase_config["turn_rate_threshold"] = config.getfloat("bearings", "turn_rate_threshold")
     except:
         logging.info("Missing turn rate gate setting, using default (4m/s)")
