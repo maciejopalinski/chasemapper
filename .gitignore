@@ -1,0 +1,4 @@
+.venv/
+chasemapper/
+log_files/
+horusmapper.cfg
