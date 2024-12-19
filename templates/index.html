@@ -482,11 +482,11 @@
             // Experimental routing control
             // Currently disabled, as there is currently not enough control around how the map is re-panned
             // after a route is calculated.
-            // router = L.Routing.control({
-            //     waypoints: [null],
-            //     show: false,
-            //     showAlternatives: false
-            // }).addTo(map);
+            router = L.Routing.control({
+                waypoints: [null],
+                show: false,
+                showAlternatives: false
+            }).addTo(map);
 
             // Handler for when the user manually moves the map. This turns off
             // the auto-follow options.
