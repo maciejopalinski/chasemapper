@@ -682,14 +682,14 @@
 
             // Sadly we can't request location information unless chasemapper is served up via HTTPS
             // which is a bit difficult to make happen.
-            // window.setInterval(function(){
-            //     if(document.getElementById('useDevicePosition').checked){
-            //         if(navigator.geolocation){
-            //             car_bad_age = 20.0;
-            //             navigator.geolocation.getCurrentPosition(devicePositionCallback,devicePositionError,{enableHighAccuracy:true});
-            //         }
-            //     }
-            // }, 5000);
+            window.setInterval(function(){
+                if(document.getElementById('useDevicePosition').checked){
+                    if(navigator.geolocation){
+                        car_bad_age = 20.0;
+                        navigator.geolocation.getCurrentPosition(devicePositionCallback,devicePositionError,{enableHighAccuracy:true});
+                    }
+                }
+            }, 5000);
 
 
             window.setInterval(function(){
