@@ -2,3 +2,5 @@
 chasemapper/
 log_files/
 horusmapper.cfg
+cert.pem
+key.pem
