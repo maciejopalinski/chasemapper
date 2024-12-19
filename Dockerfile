@@ -9,7 +9,8 @@ RUN apt-get update && \
   apt-get install -y \
   cmake \
   libgeos-dev \
-  libatlas-base-dev && \
+  libatlas-base-dev \
+  openssl && \
   rm -rf /var/lib/apt/lists/*
 
 # Copy in existing wheels.
@@ -38,6 +39,9 @@ RUN unzip /root/cusf_predictor_wrapper-master.zip -d /root && \
   cmake .. && \
   make
 
+# Generate self-signed certificate
+RUN openssl req -x509 -newkey rsa:4096 -keyout /root/chasemapper/key.pem -out /root/chasemapper/cert.pem -days 365 -nodes -subj "/CN=localhost"
+
 # -------------------------
 # The application container
 # -------------------------
@@ -65,6 +69,10 @@ COPY --from=build /root/cusf_predictor_wrapper-master/src/build/pred \
 
 # Copy in chasemapper.
 COPY . /opt/chasemapper
+
+# Copy the self-signed certificate and key from the build container.
+COPY --from=build /root/chasemapper/key.pem /opt/chasemapper/key.pem
+COPY --from=build /root/chasemapper/cert.pem /opt/chasemapper/cert.pem
 
 # Set the working directory.
 WORKDIR /opt/chasemapper
