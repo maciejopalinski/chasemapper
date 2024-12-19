@@ -80,6 +80,8 @@ function serverSettingsUpdate(data){
     // Update version
     $('#chasemapper_version').html(chase_config.version);
 
+    $('#mapboxApiKey').val(chase_config.mapbox_api_key);
+
 }
 
 function clientSettingsUpdate(){

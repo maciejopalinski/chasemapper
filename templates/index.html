@@ -484,9 +484,11 @@
             // Currently disabled, as there is currently not enough control around how the map is re-panned
             // after a route is calculated.
             router = L.Routing.control({
-                waypoints: [null],
+                waypoints: [],
+                // waypoints: [L.latLng(51.10235733088649, 17.112503635054324), L.latLng(51.111666280661616, 16.967217946787063)],
                 show: false,
-                showAlternatives: false
+                showAlternatives: true,
+                router: L.Routing.mapbox(chase_config.mapbox_api_key),
             }).addTo(map);
 
             // Handler for when the user manually moves the map. This turns off
@@ -1014,6 +1016,11 @@
                 <h3>Manual Bearing Entry</h3>
                 <div class="paramRow">
                     <input type="text" id="bearingManualEntry" value="0"><br/><button type="button" class="paramSelector" id="manualBearingBtn" onclick='manualBearing();'>Plot</button></br>
+                </div>
+
+                <h3>Mapbox API Key</h3>
+                <div class="paramRow">
+                    <input type="text" id="mapboxApiKey" disabled>
                 </div>
 
             </div>
