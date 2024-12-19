@@ -1279,6 +1279,7 @@ if __name__ == "__main__":
             app,
             host=chasemapper_config["flask_host"],
             port=chasemapper_config["flask_port"],
+            ssl_context=("cert.pem", "key.pem"),
             allow_unsafe_werkzeug=True
         )
     except TypeError as e:
@@ -1287,7 +1288,8 @@ if __name__ == "__main__":
         socketio.run(
             app,
             host=chasemapper_config["flask_host"],
-            port=chasemapper_config["flask_port"]
+            port=chasemapper_config["flask_port"],
+            ssl_context=("cert.pem", "key.pem")
         ) 
 
     # Close the predictor and data age monitor threads.
