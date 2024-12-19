@@ -1,5 +1,5 @@
 .venv/
-chasemapper/
+chasemapper/__pycache__/
 log_files/
 horusmapper.cfg
 cert.pem
