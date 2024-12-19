@@ -14,7 +14,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # Copy in existing wheels.
-# COPY wheel[s]/ /root/.cache/pip/wheels/
+COPY wheel[s]/ /root/.cache/pip/wheels/
 
 # No wheels might exist.
 RUN mkdir -p /root/.cache/pip/wheels/
