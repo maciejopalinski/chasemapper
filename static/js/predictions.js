@@ -85,7 +85,7 @@ function handlePrediction(data){
     pred_data_age = 0.0;
 
     // Update the routing engine.
-    //if (balloon_currently_following === data.callsign){
-    //    router.setWaypoints([L.latLng(chase_car_position.latest_data[0],chase_car_position.latest_data[1]), L.latLng(data.pred_landing[0], data.pred_landing[1])]);
-    //}
+    if (balloon_currently_following === data.callsign){
+       router.setWaypoints([L.latLng(chase_car_position.latest_data[0],chase_car_position.latest_data[1]), L.latLng(data.pred_landing[0], data.pred_landing[1])]);
+    }
 }
