@@ -485,11 +485,18 @@
             // after a route is calculated.
             router = L.Routing.control({
                 waypoints: [],
-                // waypoints: [L.latLng(51.10235733088649, 17.112503635054324), L.latLng(51.111666280661616, 16.967217946787063)],
-                show: false,
+                show: true,
                 showAlternatives: true,
                 // router: L.Routing.mapbox(chase_config.mapbox_api_key),
                 serviceUrl: 'https://osrm.home.mopalinski.com:5000/route/v1',
+                collapsible: true,
+                lineOptions: {
+                    addWaypoints: false,
+                },
+                plan: new L.Routing.Plan([], {
+                    addWaypoints: false,
+                    draggableWaypoints: false,
+                }),
             }).addTo(map);
 
             // Handler for when the user manually moves the map. This turns off
