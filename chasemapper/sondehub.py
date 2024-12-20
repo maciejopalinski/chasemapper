@@ -125,6 +125,10 @@ class SondehubChaseUploader(object):
         https://github.com/projecthorus/sondehub-infra/wiki/API-(Beta)
         """
 
+        # fix bug where altitude is None and sondehub ignores the data silently
+        if altitude is None:
+            altitude = 0.0
+
         _position = {
             "software_name": "ChaseMapper",
             "software_version": chasemapper.__version__,
@@ -161,6 +165,9 @@ class SondehubChaseUploader(object):
             if _req.status_code == 200:
                 # 200 is the only status code that we accept.
                 _upload_time = time.time() - _start_time
+                logging.debug(f"Request: {_position}")
+                logging.debug(f"Response: {_req.text}")
+                logging.debug(f"Upload Time: {_upload_time}")
                 logging.debug("Sondehub - Uploaded chase-car position to Sondehub.")
                 _upload_success = True
                 break
