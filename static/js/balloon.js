@@ -375,6 +375,8 @@ function handleTelemetry(data){
         map.panTo(data.position);
     } else if (_current_follow == 'car' && data.callsign == 'CAR'){
         map.panTo(data.position);
+    } else if (_current_follow == 'prediction' && data.callsign == balloon_currently_following){
+        map.panTo(router.getWaypoints()[router.getWaypoints().length - 1].latLng);
     }else{
         // Don't pan to anything.
     }

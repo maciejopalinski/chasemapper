@@ -224,7 +224,9 @@
             // LEAFLET MAP SETUP
             //
             // Setup a basic Leaflet map
-            map = L.map('map').setView([chase_config.default_lat, chase_config.default_lon], 8);
+            map = L.map('map', {
+                zoomSnap: 0
+            }).setView([chase_config.default_lat, chase_config.default_lon], 8);
 
             // Add OSM Map Layer
             var osm_map = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -465,13 +467,26 @@
             // TODO: Figure out how to centre the icons under iOS's Safari browser.
             // Also TODO: Find a decent balloon icon!
             L.easyButton('fa-paper-plane', function(btn, map){
+                map.panTo(balloon_positions[balloon_currently_following].latest_data.position);
+                map.setZoom(14);
                 $('input:radio[name=autoFollow]').val(['payload']);
             }, 'Follow Payload', 'followPayloadButton', {
                 position: 'topright'
             }
             ).addTo(map);
 
+            L.easyButton('fa-paper-plane', function(btn, map){
+                map.panTo(balloon_positions[balloon_currently_following].pred_marker.getLatLng());
+                map.setZoom(14);
+                $('input:radio[name=autoFollow]').val(['prediction']);
+            }, 'Follow Prediction', 'followPredictionButton', {
+                position: 'topright'
+            }
+            ).addTo(map);
+
             L.easyButton('fa-car', function(btn, map){
+                map.panTo(chase_car_position.latest_data);
+                map.setZoom(16);
                 $('input:radio[name=autoFollow]').val(['car']);
             }, 'Follow Chase Car', 'followCarButton', {
                 position: 'topright'
@@ -791,6 +806,7 @@
                 <form>
                   <input type="radio" name="autoFollow" value="payload" checked> Payload<br>
                   <input type="radio" name="autoFollow" value="car"> Chase Car<br>
+                  <input type="radio" name="autoFollow" value="prediction"> Prediction<br>
                   <input type="radio" name="autoFollow" value="none"> None
                 </form>
                 </hr>
