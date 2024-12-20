@@ -690,10 +690,10 @@
                 if(document.getElementById('useDevicePosition').checked){
                     if(navigator.geolocation){
                         car_bad_age = 20.0;
-                        navigator.geolocation.getCurrentPosition(devicePositionCallback,devicePositionError,{enableHighAccuracy:true});
+                        navigator.geolocation.getCurrentPosition(devicePositionCallback,devicePositionError,{enableHighAccuracy:true, maximumAge: 1000});
                     }
                 }
-            }, 5000);
+            }, 1000);
 
 
             window.setInterval(function(){
