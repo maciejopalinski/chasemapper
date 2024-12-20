@@ -84,4 +84,4 @@ ENV PATH=/root/.local/bin:$PATH
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Run horusmapper.py.
-CMD ["python3", "/opt/chasemapper/horusmapper.py"]
+CMD ["python3", "/opt/chasemapper/horusmapper.py", "-v"]
