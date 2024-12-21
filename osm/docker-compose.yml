@@ -10,16 +10,22 @@ services:
             - /var/log/nginx:/var/log/nginx
             - /etc/letsencrypt/live/osrm.home.mopalinski.com-0001/fullchain.pem:/etc/nginx/ssl/osrm.home.mopalinski.com/fullchain.pem:ro
             - /etc/letsencrypt/live/osrm.home.mopalinski.com-0001/privkey.pem:/etc/nginx/ssl/osrm.home.mopalinski.com/privkey.pem:ro
-            - files:/var/www/files:ro
+            - /etc/letsencrypt/live/tile.osm.home.mopalinski.com/fullchain.pem:/etc/nginx/ssl/tile.osm.home.mopalinski.com/fullchain.pem:ro
+            - /etc/letsencrypt/live/tile.osm.home.mopalinski.com/privkey.pem:/etc/nginx/ssl/tile.osm.home.mopalinski.com/privkey.pem:ro
         depends_on:
+            - osm-tile-server
             - osrm-backend
+
+    osm-tile-server:
+        restart: unless-stopped
+        image: overv/openstreetmap-tile-server
+        command: "run"
+        volumes:
+            - ./osm-tile-server/database/:/data/database
 
     osrm-backend:
         restart: unless-stopped
         image: ghcr.io/project-osrm/osrm-backend
         command: osrm-routed --algorithm mld /data/poland-latest.osrm
         volumes:
-            - ./data/:/data
-
-volumes:
-    files:
+            - ./osrm/:/data
