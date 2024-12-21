@@ -274,11 +274,9 @@
                 attribution: '&copy; <a href="https://carto.com/help/building-maps/basemap-list/">Carto</a>'
             });
 
-            var home_mopalinski = L.tileLayer('https://tiles.osm.home.mopalinski.com:5000/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://mopalinski.com/">Maciej Opaliński</a>'
-            });
             
-            var map_layers = {'OSM':osm_map, 'OpenTopo':osm_topo_map, 'ESRI Satellite':esri_sat_map, 'Dark Matter':dark_matter_map, 'tiles.osm.home.mopalinski.com': home_mopalinski};
+
+            var map_layers = {'OSM':osm_map, 'OpenTopo':osm_topo_map, 'ESRI Satellite':esri_sat_map, 'Dark Matter':dark_matter_map};
 
             // Add ThunderForest layers, if we have a key provided.
             if (chase_config.thunderforest_api_key !== 'none'){
