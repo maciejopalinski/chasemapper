@@ -183,3 +183,7 @@ html, body, #map {
 	flex-direction: row-reverse !important;
 	justify-content: space-between !important;
   }
+
+.display-none {
+	display: none;
+}
