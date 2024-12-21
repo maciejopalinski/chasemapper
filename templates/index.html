@@ -841,8 +841,24 @@
                 <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
                 <li><a href="#car-settings" role="tab"><i class="fa fa-car"></i></a></li>
                 <li><a href="#df-settings" role="tab"><i class="fa fa-compass"></i></a></li>
+                <!-- fullscreen -->
+                <li><a role="tab" onclick="toggleFullscreen()"><i class="fa fa-expand"></i></a></li>
             </ul>
         </div>
+
+        <script>
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+                    });
+                } else {
+                    document.exitFullscreen().catch(err => {
+                        console.error(`Error attempting to exit fullscreen mode: ${err.message} (${err.name})`);
+                    });
+                }
+            }
+        </script>            
 
         <!-- Tab panes -->
         <div class="sidebar-content">
