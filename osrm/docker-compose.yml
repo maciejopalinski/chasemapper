@@ -15,6 +15,7 @@ services:
             - osrm-backend
 
     osrm-backend:
+        restart: unless-stopped
         image: ghcr.io/project-osrm/osrm-backend
         command: osrm-routed --algorithm mld /data/poland-latest.osrm
         volumes:
