@@ -242,7 +242,8 @@
             //
             // Setup a basic Leaflet map
             map = L.map('map', {
-                zoomSnap: 0
+                zoomSnap: 0,
+                attributionControl: false
             }).setView([chase_config.default_lat, chase_config.default_lon], 8);
 
             // Add OSM Map Layer
