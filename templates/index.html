@@ -122,6 +122,8 @@
         var map;
         // Routing Engine
         var router;
+        var routerLine;
+        var routerLines;
 
 
         // Socket.IO Settings
@@ -511,6 +513,33 @@
             }
             ).addTo(map);
 
+            function fitRoutesToBounds() {
+                if ($('input[name=autoFollow]:checked').val()== 'route') {
+                    let routes;
+                    if (routerLine) {
+                        routes = [routerLine];
+                    } else if (routerLines) {
+                        routes = routerLines;
+                    }
+                    map.fitBounds(routes.map(route => L.Routing.line(route).getBounds()), {padding:[window.innerWidth * 0.1, window.innerHeight * 0.1]});
+                }
+            }
+
+            L.easyButton('fa-car', function(btn, map){
+                $('input:radio[name=autoFollow]').val(['route']);
+                fitRoutesToBounds();
+            }, 'Follow Entire Route', 'followEntireRoute', {
+                position: 'topright'
+            }
+            ).addTo(map);
+
+            L.easyButton('fa-home', function(btn, map){
+                router.show();
+            }, 'Show Router', 'showRouter', {
+                position: 'topright'
+            }
+            ).addTo(map);
+
             map.zoomControl.setPosition('topright');
 
             // Experimental routing control
@@ -525,12 +554,31 @@
                 collapsible: true,
                 lineOptions: {
                     addWaypoints: false,
+                    styles: [{color: 'black', opacity: 0.15, weight: 9}, {color: 'white', opacity: 0.8, weight: 6}, {color: 'blue', opacity: 1, weight: 2}]
+                },
+                altLineOptions: {
+                    styles: [{color: 'black', opacity: 0.15, weight: 9}, {color: 'white', opacity: 0.8, weight: 6}, {color: 'rgb(0, 145, 255)', opacity: 1, weight: 2}]
                 },
                 plan: new L.Routing.Plan([], {
                     addWaypoints: false,
                     draggableWaypoints: false,
                 }),
+                fitSelectedRoutes: false,
+                itineraryClassName: 'display-none'
             }).addTo(map);
+
+            router.on('routesfound', function(e){
+                console.log('routesfound');
+                routerLines = e.routes;
+                routerLine = null;
+                fitRoutesToBounds();
+            });
+
+            router.on('routeselected', function(e){
+                console.log('routeselected');
+                routerLine = e.route;
+                fitRoutesToBounds();
+            });
 
             // Handler for when the user manually moves the map. This turns off
             // the auto-follow options.
@@ -825,6 +873,7 @@
                   <input type="radio" name="autoFollow" value="payload" checked> Payload<br>
                   <input type="radio" name="autoFollow" value="car"> Chase Car<br>
                   <input type="radio" name="autoFollow" value="prediction"> Prediction<br>
+                  <input type="radio" name="autoFollow" value="route"> Entire Route<br>
                   <input type="radio" name="autoFollow" value="none"> None
                 </form>
                 </hr>
