@@ -98,7 +98,7 @@ Chasemapper can serve up map tiles from a specified directory to the web client.
 
 Serving of local map tiles can be enabled by setting `[offline_maps] tile_server_enabled = True`, and changing `[offline_maps] tile_server_path` to point to your tile cache directory (i.e. `/home/pi/Maps/`). Chasemapper will assume each subdirectory in this folder is a valid map layer (e.g. `~/Maps/OSM/`, `~/Maps/opencyclemap/`). and will add them to the map layer list at the top-right of the interface.
 
-Note that if you want to use these offline maps within a Docker container, you will need to [modify the tile server path](https://github.com/projecthorus/chasemapper/blob/master/horusmapper.cfg.example#L172) in your configuration file to be /opt/chasemapper/Maps/
+Note that if you want to use these offline maps within a Docker container, you will need to [modify the tile server path](./horusmapper.cfg.example#L172) in your configuration file to be /opt/chasemapper/Maps/
 
 ### Option 1 - FoxtrotGPS's Tile Cache
 Another option to obtain map tiles is [FoxtrotGPS](https://www.foxtrotgps.org/).
@@ -186,7 +186,7 @@ The following optional fields can be provided:
     'raw_doa': A list of TDOA result values, for each of the provided angles.
 ```
 
-The above formats are accepted via a horus_udp listener, and so you must have a [profile](https://github.com/projecthorus/chasemapper/blob/master/horusmapper.cfg.example#L18) set up with a `telemetry_source_type` of `horus_udp`. 
+The above formats are accepted via a horus_udp listener, and so you must have a [profile](./horusmapper.cfg.example#L18) set up with a `telemetry_source_type` of `horus_udp`. 
 
 Bearings are plotted on the map as thin lines, which slowly become transparent as they get older, and then disappear. The style of the line and the maximum age bearings shown can be configured in the new bearing settings tab on the left of the screen (click the compass icon). You can also filter bearings by the optionally supplied confidence level ('Confidence Threshold'). Bearings provided while the chase-car is stationary (i.e. when the heading is essentially unknown) are filtered out of the display by default, but can be enabled if desired ('Show stationary bearings'). Most of the filter settings will only take effect by clicking the 'Redraw Bearings' button.
 
