@@ -1,5 +1,5 @@
 eccodes
-cusfpredict
+cusfpredict @ git+https://github.com/maciejopalinski/cusf_predictor_wrapper@master
 flask
 flask-socketio
 lxml
