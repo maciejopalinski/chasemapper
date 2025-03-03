@@ -1,4 +1,4 @@
-FROM python:3.11-bookworm AS build
+FROM python:3-bookworm AS build
 
 # Upgrade base packages.
 RUN apt-get update && \
@@ -20,7 +20,7 @@ RUN unzip /root/cusf_predictor_wrapper-master.zip -d /root && \
 # -------------------------
 # The application container
 # -------------------------
-FROM python:3.11-bookworm
+FROM python:3-bookworm
 
 RUN apt-get update && \
     apt-get upgrade -y && \
