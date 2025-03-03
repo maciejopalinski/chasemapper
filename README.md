@@ -1,7 +1,7 @@
 # Project Horus - Browser-Based HAB Chase Map
 Chasemapper is a mapping system designed specifically for chasing high-altitude weather balloons, be it those you might launch yourself, or those launched by your local weather bureau. It is Project Horus's cross-platform replacement for [oziplotter](https://github.com/projecthorus/oziplotter), which was our original offline mapping system, used during many high-altitude balloon flights from 2010 through 2019. 
 
-![ChaseMapper Screenshot](https://github.com/projecthorus/chasemapper/raw/master/doc/chasemapper.jpg)
+![ChaseMapper Screenshot](./docs/chasemapper.jpg)
 
 The primary purpose of chasemapper is to provide an easy-to-use mapping interface to help you as close as possible to the landing location of a high-altitude balloon payload, ideally before the payload gets there so you can watch it land! It does this by providing live predictions of the balloon flight path during the flight, calculated from GFS weather models which are downloaded before you head off on the chase. Maps can also be served up from a local cache, allowing use without internet connectivity (useful here in Australia!). 
 
@@ -167,7 +167,7 @@ $ sudo systemctl stop chasemapper.service
 ## Radio Direction Finding Support
 As of August 2019, Chasemapper can also plot bearings from radio-direction-finding devices. Bearing information is accepted in the 'horus_udp' format (essentially, JSON over UDP broadcast), and can be provided as either 'relative' (bearing relative to front-of-car, with no source position information), or 'absolute' (bearing relative to true north, with a source lat/lon). Relative bearings will be fused with the instantaneous car heading, which is currently calculated from speed-gated GPS headings.
 
-![Bearings Screenshot](https://github.com/projecthorus/chasemapper/raw/master/doc/bearings.jpg)
+![Bearings Screenshot](./docs/bearings.jpg)
 
 The following formats are currently supported:
 ```
