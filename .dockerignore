@@ -2,6 +2,7 @@
 **/__pycache__/
 **/*.pem
 .github/
+.venv/
 .vscode/
 docs/
 gfs/
