@@ -1,0 +1,10 @@
+**/.git/
+**/__pycache__/
+**/*.pem
+.github/
+.vscode/
+docs/
+logs/
+osm/
+utils/
+horusmapper.cfg

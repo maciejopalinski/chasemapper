@@ -1,84 +1,50 @@
-# -------------------
-# The build container
-# -------------------
 FROM python:3.11-bookworm AS build
 
 # Upgrade base packages.
 RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -y \
-  cmake \
-  libgeos-dev \
-  libatlas-base-dev \
-  openssl && \
-  rm -rf /var/lib/apt/lists/*
+    apt-get upgrade -y && \
+    apt-get install -y cmake libgeos-dev libatlas-base-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy in existing wheels.
-COPY wheel[s]/ /root/.cache/pip/wheels/
+# Download cusf_predictor_wrapper
+ADD https://github.com/darksidelemm/cusf_predictor_wrapper/archive/master.zip /root/cusf_predictor_wrapper-master.zip
 
-# No wheels might exist.
-RUN mkdir -p /root/.cache/pip/wheels/
-
-# Copy in requirements.txt.
-COPY requirements.txt /root/chasemapper/requirements.txt
-
-# Install Python packages.
-RUN pip3 install --user --break-system-packages  --no-warn-script-location \
-  --ignore-installed -r /root/chasemapper/requirements.txt
-
-# Copy in chasemapper.
-COPY . /root/chasemapper
-
-# Download and install cusf_predictor_wrapper, and build predictor binary.
-ADD https://github.com/darksidelemm/cusf_predictor_wrapper/archive/master.zip \
-  /root/cusf_predictor_wrapper-master.zip
+# Extract and build cusf_predictor_wrapper
 RUN unzip /root/cusf_predictor_wrapper-master.zip -d /root && \
-  rm /root/cusf_predictor_wrapper-master.zip && \
-  mkdir -p /root/cusf_predictor_wrapper-master/src/build && \
-  cd /root/cusf_predictor_wrapper-master/src/build && \
-  cmake .. && \
-  make
-
-# Generate self-signed certificate
-RUN openssl req -x509 -newkey rsa:4096 -keyout /root/chasemapper/key.pem -out /root/chasemapper/cert.pem -days 365 -nodes -subj "/CN=localhost"
+    rm /root/cusf_predictor_wrapper-master.zip && \
+    mkdir -p /root/cusf_predictor_wrapper-master/src/build && \
+    cd /root/cusf_predictor_wrapper-master/src/build && \
+    cmake .. && \
+    make
 
 # -------------------------
 # The application container
 # -------------------------
 FROM python:3.11-bookworm
+
 EXPOSE 5001/tcp
 
-# Upgrade base packages and install application dependencies.
 RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -y \
-  libeccodes0 \
-  libgeos-c1v5 \
-  libglib2.0-0 \
-  libatlas3-base \
-  libgfortran5 \
-  tini && \
-  rm -rf /var/lib/apt/lists/*
+    apt-get upgrade -y && \
+    apt-get install -y libeccodes0 libgeos-c1v5 libglib2.0-0 libatlas3-base libgfortran5 tini && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy any additional Python packages from the build container.
-COPY --from=build /root/.local /root/.local
-
-# Copy predictor binary from the build container.
-COPY --from=build /root/cusf_predictor_wrapper-master/src/build/pred \
-  /opt/chasemapper/
-
-# Copy in chasemapper.
-COPY . /opt/chasemapper
-
-# Copy the self-signed certificate and key from the build container.
-COPY --from=build /root/chasemapper/key.pem /opt/chasemapper/key.pem
-COPY --from=build /root/chasemapper/cert.pem /opt/chasemapper/cert.pem
-
-# Set the working directory.
 WORKDIR /opt/chasemapper
 
+# Generate self-signed certificate
+RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nodes -subj "/CN=localhost"
+
+COPY requirements.txt ./
+RUN pip3 install --user --break-system-packages  --no-warn-script-location --ignore-installed -r requirements.txt
+
+# Copy predictor binary from the build container.
+COPY --from=build /root/cusf_predictor_wrapper-master/src/build/pred ./
+
+# Copy in chasemapper.
+COPY . .
+
 # Ensure scripts from Python packages are in PATH.
-ENV PATH=/root/.local/bin:$PATH
+# ENV PATH=/root/.local/bin:$PATH
 
 # Use tini as init.
 ENTRYPOINT ["/usr/bin/tini", "--"]
