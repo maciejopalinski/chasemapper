@@ -1177,7 +1177,7 @@ if __name__ == "__main__":
         "--log",
         type=str,
         default=None,
-        help="Custom log file name. (Default: ./log_files/<timestamp>.log",
+        help="Custom log file name. (Default: ./logs/<timestamp>.log",
     )
     parser.add_argument(
         "--nolog", action="store_true", default=False, help="Inhibit all logging."

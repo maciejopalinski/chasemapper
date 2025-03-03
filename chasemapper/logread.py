@@ -38,13 +38,13 @@ def read_last_balloon_telemetry():
         """
     _lasttelemetry = []
     dirs = sorted(
-        os.listdir("./log_files"), reverse=True
+        os.listdir("./logs"), reverse=True
     )  # Generate a reverse sorted list - will have to look through to find last log_file with telemetry
     for file in dirs:
         if file.endswith(".log"):
             telemetry_found = False
             try:
-                log = read_file("./log_files/" + file)
+                log = read_file("./logs/" + file)
             except Exception as e:
                 logging.debug("Error reading file - maybe in use: %s" % str(e))
 

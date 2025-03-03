@@ -26,7 +26,7 @@ class ChaseLogger(object):
         Log all chase data into a file as lines of JSON.
     """
 
-    def __init__(self, filename=None, log_dir="./log_files"):
+    def __init__(self, filename=None, log_dir="./logs"):
 
         if filename is not None:
             # Use user-supplied filename if provided
