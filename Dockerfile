@@ -22,8 +22,6 @@ RUN unzip /root/cusf_predictor_wrapper-master.zip -d /root && \
 # -------------------------
 FROM python:3.11-bookworm
 
-EXPOSE 5001/tcp
-
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y libeccodes0 libgeos-c1v5 libglib2.0-0 libatlas3-base libgfortran5 tini && \
@@ -34,11 +32,7 @@ WORKDIR /opt/chasemapper
 # Generate self-signed certificate
 RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nodes -subj "/CN=localhost"
 
-# Copy in existing wheels.
-COPY wheel[s]/ /root/.cache/pip/wheels/
-# No wheels might exist.
-RUN mkdir -p /root/.cache/pip/wheels/
-
+# Install Python dependencies.
 COPY requirements.txt ./
 RUN pip3 install --user --break-system-packages  --no-warn-script-location --ignore-installed -r requirements.txt
 
@@ -49,10 +43,9 @@ COPY --from=build /root/cusf_predictor_wrapper-master/src/build/pred ./
 COPY . .
 
 # Ensure scripts from Python packages are in PATH.
-# ENV PATH=/root/.local/bin:$PATH
+ENV PATH=/root/.local/bin:$PATH
 
-# Use tini as init.
+EXPOSE 5001/tcp
+
 ENTRYPOINT ["/usr/bin/tini", "--"]
-
-# Run horusmapper.py.
 CMD ["python3", "/opt/chasemapper/horusmapper.py", "-v"]
