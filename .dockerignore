@@ -4,6 +4,7 @@
 .github/
 .vscode/
 docs/
+gfs/
 logs/
 osm/
 utils/

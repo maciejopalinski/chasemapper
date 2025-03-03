@@ -1,5 +1,6 @@
 .venv/
 chasemapper/__pycache__/
+gfs/
 logs/
 *.pem
 horusmapper.cfg
