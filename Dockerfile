@@ -34,6 +34,11 @@ WORKDIR /opt/chasemapper
 # Generate self-signed certificate
 RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nodes -subj "/CN=localhost"
 
+# Copy in existing wheels.
+COPY wheel[s]/ /root/.cache/pip/wheels/
+# No wheels might exist.
+RUN mkdir -p /root/.cache/pip/wheels/
+
 COPY requirements.txt ./
 RUN pip3 install --user --break-system-packages  --no-warn-script-location --ignore-installed -r requirements.txt
 
