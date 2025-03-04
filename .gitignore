@@ -4,3 +4,6 @@ gfs/
 logs/
 *.pem
 horusmapper.cfg
+pred
+utils/*.json
+*.log
