@@ -1,40 +1,11 @@
-import {
-    MapContainer,
-    Marker,
-    Popup,
-    SVGOverlay,
-    TileLayer,
-    useMap,
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
+import Control from "react-leaflet-custom-control";
 import "leaflet-rotate";
 
 import NavigationIcon from "./assets/navigation.svg";
 import { useGeolocated } from "react-geolocated";
-import { Icon, icon, SVG } from "leaflet";
-import { useMemo } from "react";
-
-function BearingButton() {
-    const map = useMap();
-
-    return (
-        <button
-            style={{
-                display: "block",
-                position: "absolute",
-                top: "20px",
-                left: "100px",
-                zIndex: 1000,
-            }}
-            onClick={() => {
-                map.setBearing(map.getBearing() + 10);
-
-                console.log(map.getBearing());
-            }}
-        >
-            Rotate
-        </button>
-    );
-}
+import { Icon } from "leaflet";
+import { useCallback, useMemo } from "react";
 
 function CarMarker({ coords }: { coords: GeolocationCoordinates }) {
     const map = useMap();
@@ -55,6 +26,36 @@ function CarMarker({ coords }: { coords: GeolocationCoordinates }) {
                 icon={new Icon({ iconUrl: NavigationIcon, iconSize: [50, 50] })}
             />
         </div>
+    );
+}
+
+function CustomControl() {
+    // ! TODO: react-leaflet-custom…ol.js?v=74338880:72 Uncaught Error: No context provided: useLeafletContext() can only be used in a descendant of <MapContainer>
+    // why? it is inside MapContainer...
+    const map = useMap();
+    const rotate = useCallback(() => {
+        map.setBearing(map.getBearing() + 10);
+
+        console.log(map.getBearing());
+    }, [map]);
+
+    return (
+        <Control position="topright">
+            <button>location</button>
+
+            <button
+                style={{
+                    display: "block",
+                    position: "absolute",
+                    top: "20px",
+                    left: "100px",
+                    zIndex: 1000,
+                }}
+                onClick={rotate}
+            >
+                Rotate
+            </button>
+        </Control>
     );
 }
 
@@ -82,8 +83,7 @@ function App() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
-            <BearingButton />
+            <CustomControl />
 
             {/* <SVGOverlay
                 attributes={{ stroke: "red" }}
