@@ -48,11 +48,13 @@ function CarMarker({ coords }: { coords: GeolocationCoordinates }) {
     }, [map, coords.heading]);
 
     return (
-        <Marker
-            position={[coords.latitude, coords.longitude]}
-            rotation={coords.heading || undefined}
-            icon={new Icon({ iconUrl: NavigationIcon, iconSize: [50, 50] })}
-        />
+        <div className="car-marker">
+            <Marker
+                position={[coords.latitude, coords.longitude]}
+                rotation={coords.heading || undefined}
+                icon={new Icon({ iconUrl: NavigationIcon, iconSize: [50, 50] })}
+            />
+        </div>
     );
 }
 
