@@ -157,7 +157,7 @@ def send_balloon_telemetry(json_data, udp_port=55672):
         s.sendto(json.dumps(packet).encode('ascii'), ('127.0.0.1', udp_port))
 
 
-def playback_json(filename, udp_port=55672, speed=1.0, start_time = 0, hostname='<broadcast>'):
+def playback_json(filename: str, udp_port=55672, speed=1.0, start_time = 0, hostname='<broadcast>'):
     """ Read in a JSON log file and play it back in real-time, or with a speed factor """
 
     with open(filename, 'r') as _log_file:
@@ -191,7 +191,11 @@ def playback_json(filename, udp_port=55672, speed=1.0, start_time = 0, hostname=
                 _time_sec = _run_time%60.0
 
                 if (_time_delta < 100):
-                    time.sleep(_time_delta/speed)
+                    sleep = _time_delta/speed
+                    if sleep < 0:
+                        continue
+
+                    time.sleep(sleep)
 
                 if _log_data['log_type'] == 'CAR POSITION':
                     send_car_position(_log_data, udp_port)
@@ -219,24 +223,16 @@ def playback_json(filename, udp_port=55672, speed=1.0, start_time = 0, hostname=
 
 
 if __name__ == '__main__':
+    import argparse
 
-    filename = ""
-    speed = 1.0
-    start_time = 0
-    hostname = 'localhost'
-    udp_port = 55672
+    parser = argparse.ArgumentParser(description='Chasemapper Log File Playback')
+    parser.add_argument('filename', help='Log file to play back')
+    parser.add_argument('--speed', type=float, default=1.0, help='Speed multiplier for playback')
+    parser.add_argument('--offset', type=int, default=0, help='Start time offset in seconds')
+    parser.add_argument('--hostname', default='127.0.0.1', help='Hostname to broadcast to')
+    parser.add_argument('--port', type=int, default=55672, help='UDP port to broadcast to')
 
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    elif len(sys.argv) == 3:
-        filename = sys.argv[1]
-        speed = float(sys.argv[2])
-    elif len(sys.argv) == 4:
-        filename = sys.argv[1]
-        speed = float(sys.argv[2])
-        start_time = float(sys.argv[3])*60
-    else:
-        print("USAGE: python log_playback.py filename.log <speed_multiplier> <start_time>")
+    args = parser.parse_args()
 
-    playback_json(filename, udp_port, speed, start_time, hostname=hostname)
+    playback_json(args.filename, args.port, args.speed, args.offset, hostname=args.hostname)
 
