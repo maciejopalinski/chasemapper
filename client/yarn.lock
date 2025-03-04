@@ -831,7 +831,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet@npm:^1.9.16":
+"@types/leaflet-rotate@npm:^0":
+  version: 0.1.4
+  resolution: "@types/leaflet-rotate@npm:0.1.4"
+  dependencies:
+    "@types/leaflet": "npm:*"
+  checksum: 10c0/a59949687f4e81fa08178801fdf20d3158bb791bd02f0f3faf0c0cc4c172d412ca2923231cf2daa8102e8fe65b9b84ddc5cbb1df74bb7af9dee8c8cd2840d743
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:*, @types/leaflet@npm:^1.9.16":
   version: 1.9.16
   resolution: "@types/leaflet@npm:1.9.16"
   dependencies:
@@ -1165,6 +1174,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.21.0"
     "@types/leaflet": "npm:^1.9.16"
+    "@types/leaflet-rotate": "npm:^0"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@vitejs/plugin-react": "npm:^4.3.4"
@@ -1173,8 +1183,10 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.19"
     globals: "npm:^15.15.0"
     leaflet: "npm:^1.9.4"
+    leaflet-rotate: "npm:^0.2.8"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-geolocated: "npm:^4.3.0"
     react-leaflet: "npm:^5.0.0"
     typescript: "npm:~5.7.2"
     typescript-eslint: "npm:^8.24.1"
@@ -1957,6 +1969,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"leaflet-rotate@npm:^0.2.8":
+  version: 0.2.8
+  resolution: "leaflet-rotate@npm:0.2.8"
+  peerDependencies:
+    leaflet: ^1.9.3
+  checksum: 10c0/2333eb967888b303f25d61c52da4d738c05111200f0bbfaff2c8c485db1a02eaab263cf24d57a49530c91ee4da96068af4825f82cda3f7cee6e99a412b6ec03c
+  languageName: node
+  linkType: hard
+
 "leaflet@npm:^1.9.4":
   version: 1.9.4
   resolution: "leaflet@npm:1.9.4"
@@ -2364,6 +2385,15 @@ __metadata:
   peerDependencies:
     react: ^19.0.0
   checksum: 10c0/a36ce7ab507b237ae2759c984cdaad4af4096d8199fb65b3815c16825e5cfeb7293da790a3fc2184b52bfba7ba3ff31c058c01947aff6fd1a3701632aabaa6a9
+  languageName: node
+  linkType: hard
+
+"react-geolocated@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "react-geolocated@npm:4.3.0"
+  peerDependencies:
+    react: ">= 16.8.0 < 20.0.0"
+  checksum: 10c0/df3856b0de408fd27749dc67cd6767ee536ecc05d27791d1f46e33daf910f833eeeebd6017eb323d177484b19c546e3b9a1ac88e5222f9c02ebf8833a33e861b
   languageName: node
   linkType: hard
 
