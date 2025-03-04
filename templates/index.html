@@ -513,15 +513,13 @@
             }
             ).addTo(map);
 
-            function fitRoutesToBounds() {
+            function fitRoutesToBounds(with_balloon = true) {
                 if ($('input[name=autoFollow]:checked').val()== 'route') {
-                    let routes;
-                    if (routerLine) {
-                        routes = [routerLine];
-                    } else if (routerLines) {
-                        routes = routerLines;
+                    let bounds = L.Routing.line(routerLine).getBounds();
+                    if (with_balloon && balloon_currently_following !== 'none') {
+                        bounds = bounds.extend(balloon_positions[balloon_currently_following].marker.getLatLng());
                     }
-                    map.fitBounds(routes.map(route => L.Routing.line(route).getBounds()), {padding:[window.innerWidth * 0.1, window.innerHeight * 0.1]});
+                    map.fitBounds(bounds, {padding:[window.innerWidth * 0.1, window.innerHeight * 0.1]});
                 }
             }
 
@@ -570,7 +568,7 @@
             router.on('routesfound', function(e){
                 console.log('routesfound');
                 routerLines = e.routes;
-                routerLine = null;
+                routerLine = e.routes[0];
                 fitRoutesToBounds();
             });
 
