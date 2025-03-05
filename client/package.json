@@ -12,7 +12,6 @@
     "dependencies": {
         "leaflet": "^1.9.4",
         "leaflet-rotate": "^0.2.8",
-        "leaflet.motion": "^0.3.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-geolocated": "^4.3.0",

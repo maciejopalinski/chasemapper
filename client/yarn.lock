@@ -1195,7 +1195,6 @@ __metadata:
     globals: "npm:^15.15.0"
     leaflet: "npm:^1.9.4"
     leaflet-rotate: "npm:^0.2.8"
-    leaflet.motion: "npm:^0.3.2"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-geolocated: "npm:^4.3.0"
@@ -1988,13 +1987,6 @@ __metadata:
   peerDependencies:
     leaflet: ^1.9.3
   checksum: 2333eb967888b303f25d61c52da4d738c05111200f0bbfaff2c8c485db1a02eaab263cf24d57a49530c91ee4da96068af4825f82cda3f7cee6e99a412b6ec03c
-  languageName: node
-  linkType: hard
-
-"leaflet.motion@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "leaflet.motion@npm:0.3.2"
-  checksum: af45d77cbaf03b52e614d7494177ffe36dc3eb973eb940a31e408b1eaec39fce2b17bbf3cb36c61032c5237267678f510f87d77c4c1de0aa8648df17330dfbea
   languageName: node
   linkType: hard
 
