@@ -1200,6 +1200,7 @@ __metadata:
     react-geolocated: "npm:^4.3.0"
     react-leaflet: "npm:^5.0.0"
     react-leaflet-custom-control: "npm:^1.4.0"
+    react-leaflet-drift-marker: "npm:^4.0.0"
     typescript: "npm:~5.7.2"
     typescript-eslint: "npm:^8.24.1"
     vite: "npm:^6.2.0"
@@ -1981,6 +1982,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"leaflet-drift-marker@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "leaflet-drift-marker@npm:2.0.0"
+  peerDependencies:
+    leaflet: ">=1.2.0"
+  checksum: 14ec0d9ee9d224886cb4cae3b4a1b9c48b6a0e27dda61b536bd949d1b737e6e30e7f1ff5912bbef0e2f61650857e38bf8511afb0d6c656866e6ab97852e22289
+  languageName: node
+  linkType: hard
+
 "leaflet-rotate@npm:^0.2.8":
   version: 0.2.8
   resolution: "leaflet-rotate@npm:0.2.8"
@@ -2419,6 +2429,19 @@ __metadata:
     react: ^17.0.2 || ^18.0.0
     react-dom: ^17.0.2 || ^18.0.0
   checksum: db4428aed2005f9e7af6a90fb7b99e8de28c2a5e1026b888e534b0a566d11b7e51a6cc92fd120a8ce02341c231f7dacece9d5084b3d73839c2c90ab83b4cd74c
+  languageName: node
+  linkType: hard
+
+"react-leaflet-drift-marker@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-leaflet-drift-marker@npm:4.0.0"
+  dependencies:
+    leaflet-drift-marker: "npm:^2.0.0"
+  peerDependencies:
+    leaflet: ">=1.7"
+    react: ">=18.0.0"
+    react-leaflet: ">=4.x"
+  checksum: 782d4e050a8760875122d6190339687be0210ee113a262ab23a26f10c44124b5cbaba5bb8d37ee0c0a5b626f8b51efa0e690479cf59c7c22b2e20eebf5663457
   languageName: node
   linkType: hard
 

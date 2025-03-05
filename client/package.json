@@ -16,7 +16,8 @@
         "react-dom": "^19.0.0",
         "react-geolocated": "^4.3.0",
         "react-leaflet": "^5.0.0",
-        "react-leaflet-custom-control": "^1.4.0"
+        "react-leaflet-custom-control": "^1.4.0",
+        "react-leaflet-drift-marker": "^4.0.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.21.0",
