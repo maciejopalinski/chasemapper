@@ -1,31 +1,45 @@
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
 import "leaflet-rotate";
+import "leaflet/dist/leaflet.css";
+
+import DriftMarker from "react-leaflet-drift-marker";
 
 import NavigationIcon from "./assets/navigation.svg";
 import { useGeolocated } from "react-geolocated";
 import { Icon } from "leaflet";
 import { useCallback, useMemo } from "react";
 
-function CarMarker({ coords }: { coords: GeolocationCoordinates }) {
-    const map = useMap();
+function CarMarker({ coords }: { coords?: GeolocationCoordinates }) {
+    // const map = useMap();
 
-    map.flyTo([coords.latitude, coords.longitude], map.getZoom(), {
-        animate: true,
-    });
+    // map.flyTo([coords.latitude, coords.longitude], map.getZoom(), {
+    //     animate: true,
+    // });
 
-    useMemo(() => {
-        map.setBearing(coords.heading || 0);
-    }, [map, coords.heading]);
+    // useMemo(() => {
+    //     map.setBearing(coords.heading || 0);
+    // }, [map, coords.heading]);
 
-    return (
-        <div className="car-marker">
-            <Marker
+    const icon = useMemo(
+        () => new Icon({ iconUrl: NavigationIcon, iconSize: [50, 50] }),
+        []
+    );
+
+    return coords && (
+        <>
+            {/* <Marker
                 position={[coords.latitude, coords.longitude]}
                 rotation={coords.heading || undefined}
-                icon={new Icon({ iconUrl: NavigationIcon, iconSize: [50, 50] })}
+                icon={icon}
+            /> */}
+
+            <DriftMarker
+                position={[coords.latitude, coords.longitude]}
+                duration={500}
+                icon={icon}
             />
-        </div>
+        </>
     );
 }
 
@@ -67,25 +81,26 @@ function App() {
     });
 
     return (
-        <MapContainer
-            center={coords ? [coords.latitude, coords.longitude] : [51, 17]}
-            zoom={13}
-            scrollWheelZoom={false}
-            style={{ height: "100vh", width: "100%" }}
-            rotate={true}
-            touchRotate={false}
-            bearing={0}
-            attributionControl={false}
-            rotateControl={true}
-            zoomControl={true}
-        >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <CustomControl />
+        <>
+            <MapContainer
+                center={coords ? [coords.latitude, coords.longitude] : [51, 17]}
+                zoom={13}
+                scrollWheelZoom={false}
+                style={{ height: "100vh", width: "100%" }}
+                rotate={true}
+                touchRotate={false}
+                bearing={0}
+                attributionControl={false}
+                rotateControl={true}
+                zoomControl={true}
+            >
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {/* <CustomControl /> */}
 
-            {/* <SVGOverlay
+                {/* <SVGOverlay
                 attributes={{ stroke: "red" }}
                 bounds={[
                     [51.49, -0.1],
@@ -99,8 +114,9 @@ function App() {
                 </text>
             </SVGOverlay> */}
 
-            {coords && <CarMarker coords={coords} />}
-        </MapContainer>
+                <CarMarker coords={coords} />
+            </MapContainer>
+        </>
     );
 }
 
